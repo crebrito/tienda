@@ -4,7 +4,8 @@
 
         public function __construct()
         {
-           $this->loadModel();
+            $this->views = new views();
+            $this->loadModel();
         }
 
         public function loadModel(){
