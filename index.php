@@ -1,5 +1,8 @@
 <?php
 
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1); 
+
     require_once("config/config.php");
 
     $url = !empty($_GET['url']) ? $_GET['url'] : 'home/home';
@@ -32,7 +35,7 @@
     spl_autoload_register(function($class){
 
         if(file_exists(LIBS."core/".$class.".php")){
-            require_once(LIBS."core/".$class."php");
+            require_once(LIBS."core/".$class.".php");
         }
 
     });
