@@ -1,5 +1,7 @@
 <?php
 
+    require_once("config/config.php");
+
     $url = !empty($_GET['url']) ? $_GET['url'] : 'home/home';
 
     $arrUrl = explode('/',$url);
@@ -27,11 +29,35 @@
         }
     }
 
-    echo '<br>';
+    spl_autoload_register(function($class){
+
+        if(file_exists(LIBS."core/".$class.".php")){
+            require_once(LIBS."core/".$class."php");
+        }
+
+    });
+
+    //Load
+
+    $controllerFile = "controllers/".$controller.".php";
+
+    if(file_exists($controllerFile)){
+        require_once($controllerFile);
+        $controller = new $controller;
+        if(method_exists($controller,$method)){
+            $controller->{$method}($params);
+        }else{
+            echo "No existe el método";
+        }
+    }else{
+        echo "No existe el controlador";
+    }
+    
+    /*echo '<br>';
     echo "Controlador : $controller";
     echo '<br>';
     echo "Método : $method";
     echo '<br>';
-    echo "Parámetros : $params";
+    echo "Parámetros : $params";*/
 
 ?>
